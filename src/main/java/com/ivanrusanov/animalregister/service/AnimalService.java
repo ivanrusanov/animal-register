@@ -5,6 +5,8 @@ import com.ivanrusanov.animalregister.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnimalService {
 
@@ -17,5 +19,9 @@ public class AnimalService {
 
     public void addAnimal(Animal animal) {
         repository.insert(animal);
+    }
+
+    public List<Animal> findAll() {
+        return repository.findAll();
     }
 }

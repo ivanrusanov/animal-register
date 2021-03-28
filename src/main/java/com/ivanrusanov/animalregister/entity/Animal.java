@@ -7,15 +7,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Animal {
 
     @Id
-    private long id;
+    private final String name;
     private final Property[] properties;
 
-    public Animal(Property[] properties) {
+    public Animal(String name, Property[] properties) {
+        this.name = name;
         this.properties = properties;
     }
 
-    public long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
     public Property[] getProperties() {

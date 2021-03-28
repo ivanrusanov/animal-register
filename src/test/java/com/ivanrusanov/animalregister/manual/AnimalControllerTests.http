@@ -1,0 +1,21 @@
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Giraffe",
+  "properties": [
+    {
+      "name": "height",
+      "description": "the highest"
+    },
+    {
+      "name": "weight",
+      "description": "heavy"
+    }
+  ]
+}
+
+### Get all
+GET {{host}}/animal/all
+Accept: application/json

@@ -4,6 +4,9 @@ import com.ivanrusanov.animalregister.dto.AnimalDto;
 import com.ivanrusanov.animalregister.mapper.AnimalMapper;
 import com.ivanrusanov.animalregister.service.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,5 +26,11 @@ public class AnimalController {
     @PostMapping(path = "animal/insert")
     public void insert(@RequestBody AnimalDto animalDto) {
         service.addAnimal(animalMapper.toEntity(animalDto));
+    }
+
+    @GetMapping(path = "animal/all")
+    public ResponseEntity<AnimalDto[]> findAll() {
+        AnimalDto[] animals = service.findAll().stream().map(animalMapper::toDto).toArray(AnimalDto[]::new);
+        return new ResponseEntity<>(animals, HttpStatus.OK);
     }
 }

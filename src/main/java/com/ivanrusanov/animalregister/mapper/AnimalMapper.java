@@ -21,6 +21,7 @@ public class AnimalMapper implements Mapper<Animal, AnimalDto> {
 
     @Override public Animal toEntity(AnimalDto dto) {
         return new Animal(
+                dto.getName(),
                 Arrays.stream(dto.getProperties())
                         .map(propertyMapper::toEntity)
                         .toArray(Property[]::new)
@@ -29,6 +30,7 @@ public class AnimalMapper implements Mapper<Animal, AnimalDto> {
 
     @Override public AnimalDto toDto(Animal entity) {
         return new AnimalDto(
+                entity.getName(),
                 Arrays.stream(entity.getProperties())
                         .map(propertyMapper::toDto)
                         .toArray(PropertyDto[]::new));
