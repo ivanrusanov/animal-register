@@ -7,9 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class AnimalController {
@@ -30,7 +34,17 @@ public class AnimalController {
 
     @GetMapping(path = "animal/all")
     public ResponseEntity<AnimalDto[]> findAll() {
-        AnimalDto[] animals = service.findAll().stream().map(animalMapper::toDto).toArray(AnimalDto[]::new);
+        AnimalDto[] animals = service.findAll().stream()
+                .map(animalMapper::toDto)
+                .toArray(AnimalDto[]::new);
+        return new ResponseEntity<>(animals, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "animal")
+    public ResponseEntity<AnimalDto[]> findAll(@RequestParam(value = "search") String query) {
+        AnimalDto[] animals = service.findByProperties(query).stream()
+                .map(animalMapper::toDto)
+                .toArray(AnimalDto[]::new);
         return new ResponseEntity<>(animals, HttpStatus.OK);
     }
 }

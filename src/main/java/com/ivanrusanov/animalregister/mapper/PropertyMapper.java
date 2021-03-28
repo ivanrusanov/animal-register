@@ -9,11 +9,11 @@ public class PropertyMapper implements Mapper<Property, PropertyDto> {
 
     @Override
     public Property toEntity(PropertyDto dto) {
-        return new Property(dto.getName(), dto.getDescription());
+        return new Property(dto.getName(), dto.getValue());
     }
 
     @Override
     public PropertyDto toDto(Property entity) {
-        return new PropertyDto(entity.getName(), entity.getDescription());
+        return new PropertyDto(entity.getName(), entity.getValue());
     }
 }

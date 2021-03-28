@@ -7,15 +7,69 @@ Content-Type: application/json
   "properties": [
     {
       "name": "height",
-      "description": "the highest"
+      "value": "the highest"
     },
     {
       "name": "weight",
-      "description": "heavy"
+      "value": "heavy"
+    }
+  ]
+}
+
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Gorilla",
+  "properties": [
+    {
+      "name": "height",
+      "value": "low"
+    },
+    {
+      "name": "weight",
+      "value": "medium"
+    }
+  ]
+}
+
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Tiger",
+  "properties": [
+    {
+      "name": "height",
+      "value": "low"
+    },
+    {
+      "name": "weight",
+      "value": "medium"
+    }
+  ]
+}
+
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Ant",
+  "properties": [
+    {
+      "name": "height",
+      "value": "very small"
     }
   ]
 }
 
 ### Get all
 GET {{host}}/animal/all
+Accept: application/json
+
+### Get all
+GET {{host}}/animal?search=name==height;value=='the highest'
 Accept: application/json
