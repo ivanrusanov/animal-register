@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 public class AnimalController {
@@ -41,10 +41,23 @@ public class AnimalController {
     }
 
     @GetMapping(path = "animal")
-    public ResponseEntity<AnimalDto[]> findAll(@RequestParam(value = "search") String query) {
-        AnimalDto[] animals = service.findByProperties(query).stream()
+    public ResponseEntity<AnimalDto[]> findAll0(@RequestParam(value = "search") String query) {
+        return new ResponseEntity<>(findAll(query), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "animal/count")
+    public ResponseEntity<Integer> countAll(@RequestParam(value = "search") String query) {
+        return new ResponseEntity<>(findAll(query).length, HttpStatus.OK);
+    }
+
+    private String decode(String encodedString) {
+        return URLDecoder.decode(encodedString, StandardCharsets.UTF_8);
+    }
+
+    public AnimalDto[] findAll(String query) {
+        query = decode(query);
+        return service.findByProperties(query).stream()
                 .map(animalMapper::toDto)
                 .toArray(AnimalDto[]::new);
-        return new ResponseEntity<>(animals, HttpStatus.OK);
     }
 }

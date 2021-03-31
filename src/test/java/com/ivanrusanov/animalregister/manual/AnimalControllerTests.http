@@ -76,22 +76,86 @@ Content-Type: application/json
   }
 }
 
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Ostrich",
+  "properties": {
+    "type": "omnivore",
+    "height": "tall",
+    "weight": "medium"
+  }
+}
+
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Bear",
+  "properties": {
+    "type": "omnivore",
+    "height": "tall",
+    "weight": "heavy"
+  }
+}
+
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Caterpillar",
+  "properties": {
+    "type": "herbivore",
+    "height": "short",
+    "weight": "lightweight"
+  }
+}
+
 ### Get all
 GET {{host}}/animal/all
 Accept: application/json
 
-### Get all
-GET {{host}}/animal?search=type==herbivore
+### properties['type'] == 'herbivore'
+### Returns Giraffe, Gorilla, Elephant, Zebra and Caterpillar
+GET {{host}}/animal?search=properties%5B%27type%27%5D%20%3D%3D%20%27herbivore%27
 Accept: application/json
 
-### Get all
-GET {{host}}/animal?search=name==type;value==herbivore
+### properties['type'] == 'herbivore' && properties['weight'] != 'medium'
+### Returns Giraffe, Elephant and Caterpillar
+GET {{host}}/animal?search=properties%5B%27type%27%5D%20%3D%3D%20%27herbivore%27%20%26%26%20properties%5B%27weight%27%5D%20!%3D%20%27medium%27
 Accept: application/json
 
-### Get all
-GET {{host}}/animal?search=(name==type;(value=in=(herbivore,carnivore)))
+### (properties['type'] == 'herbivore' || properties['type'] == 'carnivore') && properties['weight'] != 'lightweight'
+### Returns Giraffe, Gorilla, Tiger, Elephant and Zebra
+GET {{host}}/animal?search=(properties%5B%27type%27%5D%20%3D%3D%20%27herbivore%27%20%7C%7C%20properties%5B%27type%27%5D%20%3D%3D%20%27carnivore%27)%20%26%26%20properties%5B%27weight%27%5D%20!%3D%20%27lightweight%27
 Accept: application/json
 
-### Get all
-GET {{host}}/animal?search=(name==type;(value=in=(herbivore,carnivore)));(name==height;value!=short)
+### properties['type'] == 'omnivore' && properties['height'] != 'tall'
+### returns Chimpanzee
+GET {{host}}/animal?search=properties%5B%27type%27%5D%20%3D%3D%20%27omnivore%27%20%26%26%20properties%5B%27height%27%5D%20!%3D%20%27tall%27
+Accept: application/json
+
+
+### properties['type'] == 'herbivore'
+### Returns 5
+GET {{host}}/animal/count?search=properties%5B%27type%27%5D%20%3D%3D%20%27herbivore%27
+Accept: application/json
+
+### properties['type'] == 'herbivore' && properties['weight'] != 'medium'
+### Returns 3
+GET {{host}}/animal/count?search=properties%5B%27type%27%5D%20%3D%3D%20%27herbivore%27%20%26%26%20properties%5B%27weight%27%5D%20!%3D%20%27medium%27
+Accept: application/json
+
+### (properties['type'] == 'herbivore' || properties['type'] == 'carnivore') && properties['weight'] != 'lightweight'
+### Returns 5
+GET {{host}}/animal/count?search=(properties%5B%27type%27%5D%20%3D%3D%20%27herbivore%27%20%7C%7C%20properties%5B%27type%27%5D%20%3D%3D%20%27carnivore%27)%20%26%26%20properties%5B%27weight%27%5D%20!%3D%20%27lightweight%27
+Accept: application/json
+
+### properties['type'] == 'omnivore' && properties['height'] != 'tall'
+### returns 1
+GET {{host}}/animal/count?search=properties%5B%27type%27%5D%20%3D%3D%20%27omnivore%27%20%26%26%20properties%5B%27height%27%5D%20!%3D%20%27tall%27
 Accept: application/json
