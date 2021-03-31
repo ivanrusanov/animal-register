@@ -4,16 +4,11 @@ Content-Type: application/json
 
 {
   "name": "Giraffe",
-  "properties": [
-    {
-      "name": "height",
-      "value": "the highest"
-    },
-    {
-      "name": "weight",
-      "value": "heavy"
-    }
-  ]
+  "properties": {
+    "type": "herbivore",
+    "height": "tall",
+    "weight": "heavy"
+  }
 }
 
 ### Insert new Animal into the database
@@ -22,16 +17,11 @@ Content-Type: application/json
 
 {
   "name": "Gorilla",
-  "properties": [
-    {
-      "name": "height",
-      "value": "low"
-    },
-    {
-      "name": "weight",
-      "value": "medium"
-    }
-  ]
+  "properties": {
+    "type": "herbivore",
+    "height": "medium",
+    "weight": "medium"
+  }
 }
 
 ### Insert new Animal into the database
@@ -40,16 +30,11 @@ Content-Type: application/json
 
 {
   "name": "Tiger",
-  "properties": [
-    {
-      "name": "height",
-      "value": "low"
-    },
-    {
-      "name": "weight",
-      "value": "medium"
-    }
-  ]
+  "properties": {
+    "type": "carnivore",
+    "height": "short",
+    "weight": "medium"
+  }
 }
 
 ### Insert new Animal into the database
@@ -57,13 +42,38 @@ POST http://{{host}}/animal/insert
 Content-Type: application/json
 
 {
-  "name": "Ant",
-  "properties": [
-    {
-      "name": "height",
-      "value": "very small"
-    }
-  ]
+  "name": "Chimpanzee",
+  "properties": {
+    "type": "omnivore",
+    "height": "short",
+    "weight": "lightweight"
+  }
+}
+
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Elephant",
+  "properties": {
+    "type": "herbivore",
+    "height": "tall",
+    "weight": "heavy"
+  }
+}
+
+### Insert new Animal into the database
+POST http://{{host}}/animal/insert
+Content-Type: application/json
+
+{
+  "name": "Zebra",
+  "properties": {
+    "type": "herbivore",
+    "height": "short",
+    "weight": "medium"
+  }
 }
 
 ### Get all
@@ -71,5 +81,17 @@ GET {{host}}/animal/all
 Accept: application/json
 
 ### Get all
-GET {{host}}/animal?search=name==height;value=='the highest'
+GET {{host}}/animal?search=type==herbivore
+Accept: application/json
+
+### Get all
+GET {{host}}/animal?search=name==type;value==herbivore
+Accept: application/json
+
+### Get all
+GET {{host}}/animal?search=(name==type;(value=in=(herbivore,carnivore)))
+Accept: application/json
+
+### Get all
+GET {{host}}/animal?search=(name==type;(value=in=(herbivore,carnivore)));(name==height;value!=short)
 Accept: application/json

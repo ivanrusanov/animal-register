@@ -1,11 +1,14 @@
 package com.ivanrusanov.animalregister.dto;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AnimalDto {
 
     private final String name;
-    private final PropertyDto[] properties;
+    private final Map<String, String> properties;
 
-    public AnimalDto(String name, PropertyDto[] properties) {
+    public AnimalDto(String name, Map<String, String> properties) {
         this.name = name;
         this.properties = properties;
     }
@@ -14,7 +17,7 @@ public class AnimalDto {
         return name;
     }
 
-    public PropertyDto[] getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 }
