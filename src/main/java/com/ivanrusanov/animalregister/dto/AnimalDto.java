@@ -1,6 +1,5 @@
 package com.ivanrusanov.animalregister.dto;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class AnimalDto {
