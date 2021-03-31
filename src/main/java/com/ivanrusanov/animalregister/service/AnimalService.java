@@ -29,7 +29,6 @@ public class AnimalService {
         return repository.findAll();
     }
 
-    // "properties['type'] == 'herbivore' && properties['weight'] != 'medium'"
     public List<Animal> findByProperties(String queryString) {
         ExpressionParser parser = new SpelExpressionParser();
         List<Animal> selected = new ArrayList<>();
